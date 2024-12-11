@@ -1,7 +1,13 @@
-import java.util.Dictionary;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Department {
-    private Dictionary<Integer, Course> courseMap;
-    private List<Professor> professors;
+    private HashMap<String, List<Course>> courseMap;
+    private ArrayList<Professor> professors;
+
+    public Department(ArrayList<Professor> professors) {
+        this.professors = professors;
+        courseMap = new HashMap<>();
+    }
 }
