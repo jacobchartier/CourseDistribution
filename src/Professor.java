@@ -39,7 +39,7 @@ public class Professor implements Comparable<Professor> {
     }
 
     public static ArrayList<Professor> getProfessorsFromFile(String path) {
-        System.out.println("\n--> Processing professor file...");
+        Debug.printLoggingHeader(path);
         ArrayList<Professor> professors = new ArrayList<>();
 
         try {
@@ -52,7 +52,7 @@ public class Professor implements Comparable<Professor> {
                 // Check if the seniority is valid
                 if (!isFloatValid(data[2])) {
                     // Error message
-                    System.out.println("\u001B[31mREJECTED\t " + data[1] + " (id=" + data[0] + ") provided the value " + data[2] + " as seniority, a numerical value is needed." + "\u001B[0m");
+                    Debug.log(Debug.type.REJECTED, data[1] + " (id=" + data[0] + ") provided the value " + data[2] + " as seniority, a numerical value is needed.");
                     // Skip to the next professor
                     continue;
                 }
@@ -67,8 +67,8 @@ public class Professor implements Comparable<Professor> {
             }
 
             scanner.close();
+            Debug.log(Debug.type.INFORMATION, professors.size() + " professors successfully retrieved from file.");
 
-            System.out.println("\nRetrieved " + professors.size() + " professor(s) from file \"" + path + "\"\n");
             return professors;
         } catch (Exception exception) {
             throw new RuntimeException(exception);
@@ -93,12 +93,12 @@ public class Professor implements Comparable<Professor> {
 
         for (String s : output) {
             if (s.startsWith("0") && output.length == 1) {
-                System.out.println("\u001B[31mREJECTED\t " + data[1] + " (id=" + data[0] + ") did not provide any discipline." + "\u001B[0m");
+                Debug.log(Debug.type.REJECTED, data[1] + " (id=" + data[0] + ") did not provide any discipline.");
                 break;
             }
 
             if (!(s.trim().matches("[A-Za-z]{1,2}(-|)[0-9]{1,2}"))) {
-                System.out.println("\033[0;33mIGNORED\t\t " + data[1] + " (id=" + data[0] + ") provided an invalid discipline: " + s.trim() + "\u001B[0m");
+                Debug.log(Debug.type.IGNORED, data[1] + " (id=" + data[0] + ") provided an invalid discipline: " + s.trim());
                 continue;
             }
 

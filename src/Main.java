@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -10,14 +12,16 @@ public class Main {
     public static void main(String[] args) {
         // C:\Users\Jacob Chartier\Desktop\Data
 
-        File directory = new File(getWorkingPath()); // new File("C:\\Users\\Jacob Chartier\\Desktop\\Data");
+        File directory = /*new File(getWorkingPath());*/ new File("C:\\Users\\Jacob Chartier\\Desktop\\Data");
         File[] listOfFiles = directory.listFiles();
 
         try {
             ArrayList<Professor> professors = Professor.getProfessorsFromFile(directory + PROFESSORS_FILE);
+            HashMap<String, List<Course>> courses = Course.getCoursesFromFile(directory + COURSES_FILE);
 
-
-
+            for (HashMap.Entry<String, List<Course>> entry : courses.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -29,20 +33,5 @@ public class Main {
 
         System.out.print("\nEnter the directory path: ");
         return scanner.nextLine();
-    }
-
-    private static void processCourses(String path) {
-        System.out.println("\n--> Processing " + path + "\n");
-
-        try {
-            File file = new File(path);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
     }
 }
