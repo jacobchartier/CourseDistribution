@@ -1,30 +1,6 @@
-public class Debug {
-    public enum type {
-        REJECTED, IGNORED, INFORMATION, OTHER
-    }
+package util;
 
-    public static void printLoggingHeader(String filename) {
-        System.out.println("\n" + WHITE_BOLD_BRIGHT + "Output for: \"" + filename + "\"\nStatus -------\tMessage ------------------------------------------------------------------------------");
-    }
-
-    public static void log(type type, String message) {
-        switch (type) {
-            case REJECTED:
-                System.out.println(RED_BOLD_BRIGHT + "Rejected " + RED + "\t\t" + message + RESET);
-                break;
-
-            case IGNORED:
-                System.out.println(YELLOW_BOLD_BRIGHT+ "Ignored " + YELLOW + "\t\t" + message + RESET);
-                break;
-
-            case INFORMATION:
-                System.out.println(BLUE_BOLD_BRIGHT + "Information " + RESET + "\t" + message + RESET);
-                break;
-
-            case OTHER:
-                System.out.println(message);
-        }
-    }
+public class ConsoleColor {
 
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset

@@ -1,9 +1,8 @@
+import entities.Department;
+import util.file.*;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     private static final String PROFESSORS_FILE = "\\professors.txt";
@@ -12,16 +11,13 @@ public class Main {
     public static void main(String[] args) {
         // C:\Users\Jacob Chartier\Desktop\Data
 
-        File directory = /*new File(getWorkingPath());*/ new File("C:\\Users\\Jacob Chartier\\Desktop\\Data");
-        File[] listOfFiles = directory.listFiles();
+        File directory = new File(getWorkingPath());
 
         try {
-            ArrayList<Professor> professors = Professor.getProfessorsFromFile(directory + PROFESSORS_FILE);
-            HashMap<String, List<Course>> courses = Course.getCoursesFromFile(directory + COURSES_FILE);
+            Department department = new Department(ProfessorHandler.getProfessors(directory + PROFESSORS_FILE));
+            department.setCourseMap(CourseHandler.getCourses(directory + COURSES_FILE));
+            department.processChoices(directory.toString());
 
-            for (HashMap.Entry<String, List<Course>> entry : courses.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
-            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
